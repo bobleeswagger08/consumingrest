@@ -1,0 +1,46 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!loginSuccess">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label> User Name:</label>
+                <input type="text" [formControl]="userName" class="form-control">
+                <div *ngIf="userName.touched && userName.invalid" class="alert alert-danger">
+                    <div *ngIf="userName.errors.required">User Name is required.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label> Password:</label>
+                <input type="password" [formControl]="userPassword" class="form-control">
+                <div *ngIf="userPassword.touched && userPassword.invalid" class="alert alert-danger">
+                    <div *ngIf="userPassword.errors.required">User Password is required.</div>
+                    <div *ngIf="userPassword.errors.invalidUserPassword">User Password is invalid.</div>
+                </div>
+            </div>
+            <div class="form-group" style="padding-left: 48px;">
+            <button type="submit" class="btn btn-info" [disabled]="!loginForm.valid">Login</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="container" *ngIf="loginSuccess">
+    <h1 class="well" style="padding-left: 74px;">Employee Detail</h1>
+    <div class="col-lg-12 well">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="list-group">
+                    <li *ngFor="let emp of employees" class="list-group-item">
+                        <button class="btn btn-default btn-link" (click)="editEmployee(emp)">Edit</button>
+                        {{emp.code+' - '+emp.name+' - '+emp.note}}
+                        <button class="btn btn-default btn-link" (click)="deleteEmployee(emp)">Delete</button>
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="col-sm-12" style="padding-top: 20px;padding-left: 96px;">
+                            <button class="" class="btn btn-primary col-sm-4" (click)="addEmployee()">Add</button>
+                            <button  class="btn btn-danger col-sm-4" style="margin-left:20px" (click)="logOut()">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
